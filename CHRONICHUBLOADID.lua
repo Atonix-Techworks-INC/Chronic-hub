@@ -1,15 +1,10 @@
-local ids = {
-    ["621129760"] = loadstring(game:HttpGet("https://raw.githubusercontent.com/bennytrt/Chronic-hub/main/Knife%20Ability%20Test.lua")),
-    }
-    local executed;
-                  
-    for id, code in pairs(ids) do
-    if game.PlaceId == tonumber(id) then
-    executed = true
-    code()
-    end
-    end
-                  
-    if not executed then
-    print("Game Unsupported! join discord.gg/sp8Kzk3FXr To See Our Supported Games! ")
-    end
+local supported_ids = {
+    ["621129760"] = "https://raw.githubusercontent.com/bennytrt/Chronic-hub/main/Knife%20Ability%20Test.lua",
+}
+
+if (getgenv().CHRONIC_HUB_LOADED ~= true and supported_ids[tostring(game.PlaceId)]) then
+    getgenv().CHRONIC_HUB_LOADED = true
+    loadstring(game:HttpGet(supported_ids[tostring(game.PlaceId)]))()
+elseif (supported_ids[tostring(game.PlaceId)] == nil) then
+    game:GetService("Players").LocalPlayer:Kick("\nGame Unsupported!\njoin discord.gg/sp8Kzk3FXr To See Our Supported Games!")
+end
